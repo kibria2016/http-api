@@ -12,10 +12,10 @@ from test import *
 from pydantic import ValidationError
 import os
 
-# USER_POOL_ID=os.environ.get("USER_POOL_ID")
-USER_POOL_ID="us-west-2_YAaIaRMeE"
-# USER_POOL_CLIENT_ID=os.environ.get("USER_POOL_CLIENT_ID")
-USER_POOL_CLIENT_ID="4oid31egmjossb8tsagkgim77p"
+USER_POOL_ID=os.environ.get("USER_POOL_ID")
+# USER_POOL_ID="us-west-2_YAaIaRMeE"
+USER_POOL_CLIENT_ID=os.environ.get("USER_POOL_CLIENT_ID")
+# USER_POOL_CLIENT_ID="4oid31egmjossb8tsagkgim77p"
 
 db = boto3.resource('dynamodb')
 table = db.Table('papel_student_table')
@@ -140,6 +140,7 @@ def user_login(event, context):
     b = json.loads(event['body'])
     token = []
     msg = ""
+    print(USER_POOL_CLIENT_ID)
     try:
         test = LoginTest(**b)
         auth_data = { 'USERNAME':test.email , 'PASSWORD':test.password }        
@@ -407,21 +408,21 @@ def user_login(event, context):
 
 
 # def get_user(event, context):
-    if event['httpMethod'] == "GET":
-        response = client.admin_get_user(
-            UserPoolId = USER_POOL_ID,
-            Username = '06da8677-f786-4187-95a0-4424f350a24f'
-        )
+    # if event['httpMethod'] == "GET":
+    #     response = client.admin_get_user(
+    #         UserPoolId = USER_POOL_ID,
+    #         Username = '06da8677-f786-4187-95a0-4424f350a24f'
+    #     )
 
-        # print(response['UserAttributes'])      
+    #     # print(response['UserAttributes'])      
        
-        return {
-                'statusCode': 200,
-                'headers': {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "*",
-                    "Access-Control-Allow-Headers": "*"
-                },
-                'body': json.dumps(response['UserAttributes'])
-            }
+    #     return {
+    #             'statusCode': 200,
+    #             'headers': {
+    #                 "Content-Type": "application/json",
+    #                 "Access-Control-Allow-Origin": "*",
+    #                 "Access-Control-Allow-Methods": "*",
+    #                 "Access-Control-Allow-Headers": "*"
+    #             },
+    #             'body': json.dumps(response['UserAttributes'])
+            # }

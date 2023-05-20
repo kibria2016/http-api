@@ -3,7 +3,7 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 # from ksuid import ksuid
-import requests
+
 
 db = boto3.resource('dynamodb')
 table = db.Table('papel_student_table')
